@@ -36,6 +36,20 @@ public class Way extends AbstractNode {
         this.tags = tags;
     }
 
+    public LineString getLineString() {
+        List<Coordinate> coords = new ArrayList<Coordinate>();
+        GeometryFactory fac = new GeometryFactory(
+                new PrecisionModel(0.001), 4326);
+
+        Coordinate c1;
+        for (OSMNode node : nodes) {
+            c1 = new Coordinate(Double.parseDouble(node.lon), Double.parseDouble(node.lat));
+            coords.add(c1);
+        }
+
+        return fac.createLineString(coords.toArray(new Coordinate[0]));
+    }
+
     public boolean isHighway() {
         return (tags.get(HIGHWAY) != null);
     }
@@ -99,31 +113,13 @@ public class Way extends AbstractNode {
     }
 
     public String getShape() throws Exception {
+        MultiLineString mls;
 
-        List<LineString> coords = new ArrayList<LineString>();
-        GeometryFactory fac = new GeometryFactory(
-                new PrecisionModel(0.001), 4326);
-
-        OSMNode n1, n2;
-        Coordinate c1, c2;
-
-        for (int i = 0; i < nodes.size() - 1; i++) {
-
-            n1 = nodes.get(i);
-            n2 = nodes.get(i + 1);
-
-            c1 = new Coordinate(Double.parseDouble(n1.lon), Double.parseDouble(n1.lat));
-            c2 = new Coordinate(Double.parseDouble(n2.lon), Double.parseDouble(n2.lat));
-
-            coords.add(fac.createLineString(new Coordinate[]{c1, c2}));
-
-        }
-
-        MultiLineString mls = fac.createMultiLineString(
-                coords.toArray(new LineString[0]));
+        // Precisa ser um MultiLineString
+        mls = new GeometryFactory().createMultiLineString(
+                new LineString[] { getLineString() });
 
         return WKBWriter.bytesToHex(new WKBWriter().write(mls));
-
     }
 
     public String getAltNames() {

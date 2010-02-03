@@ -1,10 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.zuq.osm.parser.model;
 
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -16,6 +12,12 @@ public class OSM {
     private Set<OSMNode> nodes;
     private Set<Way> ways;
     private Set<Relation> relations;
+
+    public OSM() {
+        nodes = new HashSet<OSMNode>();
+        ways = new HashSet<Way>();
+        relations = new HashSet<Relation>();
+    }
 
     public OSM(Set<OSMNode> nodes, Set<Way> ways,
             Set<Relation> relations) {
@@ -34,5 +36,14 @@ public class OSM {
 
     public Set<Way> getWays() {
         return ways;
+    }
+
+    public Way getWay(String id) {
+        for (Way way : ways) {
+            if (way.id.equals(id)) {
+                return way;
+            }
+        }
+        return null;
     }
 }
