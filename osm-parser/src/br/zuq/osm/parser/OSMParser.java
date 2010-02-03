@@ -33,14 +33,13 @@ public class OSMParser {
         NodeList nodesList;
 
         Map<String, OSMNode> nodes = new LinkedHashMap<String, OSMNode>();
-        Set<Way> ways = new HashSet<Way>();
-        Set<Relation> relations = new HashSet<Relation>();
 
         builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         doc = builder.parse(path);
 
         nodesList = doc.getChildNodes().item(0).getChildNodes();
 
+        OSM osm = new OSM();
         for (int i = 0; i < nodesList.getLength(); i++) {
 
             node = nodesList.item(i);
@@ -49,16 +48,17 @@ public class OSMParser {
 
                 OSMNode osmNode = NodeParser.parseNode(node);
                 nodes.put(osmNode.id, osmNode);
+                osm.getNodes().add(osmNode);
 
             } else if (WayParser.isWay(node)) {
 
                 Way way = WayParser.parseWay(node, nodes);
-                ways.add(way);
+                osm.getWays().add(way);
 
             } else if (RelationParser.isRelation(node)) {
 
-                Relation relation = RelationParser.parseRelation(node);
-                relations.add(relation);
+                Relation relation = RelationParser.parseRelation(osm, node);
+                osm.getRelations().add(relation);
 
             }
         }
@@ -69,7 +69,7 @@ public class OSMParser {
             nodeset.add(nodes.get(n));
         }
 
-        return new OSM(nodeset, ways, relations);
+        return osm;
     }
 
     protected static Map<String, String> parseTags(NodeList nodes) {

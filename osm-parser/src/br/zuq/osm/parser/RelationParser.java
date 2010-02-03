@@ -5,6 +5,7 @@
 package br.zuq.osm.parser;
 
 import br.zuq.osm.parser.model.Member;
+import br.zuq.osm.parser.model.OSM;
 import br.zuq.osm.parser.model.Relation;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +23,12 @@ public class RelationParser {
         return node.getNodeName().equals("relation");
     }
 
-    public static Relation parseRelation(Node node) {
+    public static Relation parseRelation(OSM osm, Node node) {
         NamedNodeMap atts = node.getAttributes();
 
         String id = atts.getNamedItem("id").getNodeValue();
 
-        return new Relation(id,
+        return new Relation(osm, id,
                 atts.getNamedItem("visible").getNodeValue(),
                 atts.getNamedItem("timestamp").getNodeValue(),
                 atts.getNamedItem("version").getNodeValue(),

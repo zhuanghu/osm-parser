@@ -125,7 +125,7 @@
   <nd ref="616061324"/>
   <nd ref="430948763"/>
   <tag k="highway" v="residential"/>
-  <tag k="name" v="R. Quintino Bocaiúva"/>
+  <tag k="name" v="Rua Quintino Bocaiúva"/>
   <tag k="alt_name" v="R1"/>
   <tag k="alt_name" v="R2"/>
   <tag k="alt_name" v="R3"/>
@@ -139,4 +139,30 @@
   <tag k="leisure" v="park"/>
   <tag k="name" v="Praça Lions"/>
  </way>
+
+<!-- Teste ways -->
+<node id="1" lat="-9" lon="-35" user="marcioaguiar" uid="81933" visible="true" version="2" changeset="3553047" timestamp="2010-01-06T13:56:03Z"/>
+<node id="2" lat="-8" lon="-34" user="marcioaguiar" uid="81933" visible="true" version="2" changeset="3553047" timestamp="2010-01-06T13:56:03Z"/>
+<node id="3" lat="-7" lon="-33" user="marcioaguiar" uid="81933" visible="true" version="2" changeset="3553047" timestamp="2010-01-06T13:56:03Z"/>
+
+<way id="123" user="marcioaguiar" uid="81933" visible="true" version="3" changeset="3647570" timestamp="2010-01-18T02:15:47Z">
+  <nd ref="1"/>
+  <nd ref="2"/>
+  <tag k="boundary" v="administrative"/>
+ </way>
+
+ <way id="321" user="marcioaguiar" uid="81933" visible="true" version="1" changeset="3740677" timestamp="2010-01-29T04:01:53Z">
+  <nd ref="2"/>
+  <nd ref="3"/>
+  <tag k="boundary" v="administrative"/>
+ </way>
+
+ <relation id="400722" user="marcioaguiar" uid="81933" visible="true" version="1" changeset="3784451" timestamp="2010-02-03T17:14:50Z">
+  <member type="way" ref="123" role=""/>
+  <member type="way" ref="321" role=""/>
+  <tag k="admin_level" v="10"/>
+  <tag k="boundary" v="administrative"/>
+  <tag k="name" v="Barro Duro"/>
+  <tag k="type" v="boundary"/>
+ </relation>
 </osm>
