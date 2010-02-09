@@ -51,7 +51,7 @@ public class OSMParserTest {
                     fac.createLineString(new Coordinate[]{c1, c2}),
                     fac.createLineString(new Coordinate[]{c2, c3}) });
 
-        assertTrue(mls.equals(osm.getRelations().iterator().next().getMultiLineString()));
+        assertTrue(mls.equals(osm.getRelations().iterator().next().getPolygon()));
         assertTrue(found);
     }
 }

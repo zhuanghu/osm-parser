@@ -24,16 +24,23 @@ public class NodeParser {
         String id = atts.getNamedItem("id").getNodeValue();
 
         OSMNode osmNode = new OSMNode(id,
-                atts.getNamedItem("visible").getNodeValue(),
-                atts.getNamedItem("timestamp").getNodeValue(),
-                atts.getNamedItem("version").getNodeValue(),
-                atts.getNamedItem("changeset").getNodeValue(),
-                atts.getNamedItem("user").getNodeValue(),
-                atts.getNamedItem("uid").getNodeValue(),
-                atts.getNamedItem("lat").getNodeValue(),
-                atts.getNamedItem("lon").getNodeValue(),
+                getAttribute(atts, "visible"),
+                getAttribute(atts, "timestamp"),
+                getAttribute(atts, "version"),
+                getAttribute(atts, "changeset"),
+                getAttribute(atts, "user"),
+                getAttribute(atts, "uid"),
+                getAttribute(atts, "lat"),
+                getAttribute(atts, "lon"),
                 OSMParser.parseTags(node.getChildNodes()));
         
         return osmNode;
+    }
+
+    // Private Methods ---------------------------------------------------------
+    
+    private static String getAttribute(NamedNodeMap atts, String key) {
+        Node node = atts.getNamedItem(key);
+        return (node == null) ? null : node.getNodeValue();
     }
 }

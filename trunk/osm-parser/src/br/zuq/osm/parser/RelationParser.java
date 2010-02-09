@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.zuq.osm.parser;
 
 import br.zuq.osm.parser.model.Member;
@@ -29,14 +25,21 @@ public class RelationParser {
         String id = atts.getNamedItem("id").getNodeValue();
 
         return new Relation(osm, id,
-                atts.getNamedItem("visible").getNodeValue(),
-                atts.getNamedItem("timestamp").getNodeValue(),
-                atts.getNamedItem("version").getNodeValue(),
-                atts.getNamedItem("changeset").getNodeValue(),
-                atts.getNamedItem("user").getNodeValue(),
-                atts.getNamedItem("uid").getNodeValue(),
+                getAttribute(atts, "visible"),
+                getAttribute(atts, "timestamp"),
+                getAttribute(atts, "version"),
+                getAttribute(atts, "changeset"),
+                getAttribute(atts, "user"),
+                getAttribute(atts, "uid"),
                 getMembers(node.getChildNodes()),
                 OSMParser.parseTags(node.getChildNodes()));
+    }
+
+    // Private Methods ---------------------------------------------------------
+
+    private static String getAttribute(NamedNodeMap atts, String key) {
+        Node node = atts.getNamedItem(key);
+        return (node == null) ? null : node.getNodeValue();
     }
 
     private static List<Member> getMembers(NodeList children) {
