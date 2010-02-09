@@ -1,13 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.zuq.osm.parser;
 
 import br.zuq.osm.parser.model.OSMNode;
 import br.zuq.osm.parser.model.Way;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.NamedNodeMap;
@@ -33,16 +28,23 @@ public class WayParser {
 
         way = new Way(
                 id,
-                atts.getNamedItem("visible").getNodeValue(),
-                atts.getNamedItem("timestamp").getNodeValue(),
-                atts.getNamedItem("version").getNodeValue(),
-                atts.getNamedItem("changeset").getNodeValue(),
-                atts.getNamedItem("user").getNodeValue(),
-                atts.getNamedItem("uid").getNodeValue(),
+                getAttribute(atts, "visible"),
+                getAttribute(atts, "timestamp"),
+                getAttribute(atts, "version"),
+                getAttribute(atts, "changeset"),
+                getAttribute(atts, "user"),
+                getAttribute(atts, "uid"),
                 getNodes(wayNode.getChildNodes(), nodes),
                 OSMParser.parseTags(wayNode.getChildNodes()));
 
         return way;
+    }
+
+    // Private Methods ---------------------------------------------------------
+
+    private static String getAttribute(NamedNodeMap atts, String key) {
+        Node node = atts.getNamedItem(key);
+        return (node == null) ? null : node.getNodeValue();
     }
 
     private static List<OSMNode> getNodes(NodeList children, Map<String, OSMNode> nodes) {

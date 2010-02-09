@@ -1,5 +1,7 @@
 package br.zuq.osm.parser.model;
 
+import java.util.Map;
+
 /**
  *
  * @author Willy Tiengo
@@ -13,9 +15,11 @@ public class AbstractNode {
     public String changeset;
     public String user;
     public String uid;
+    public Map<String, String> tags;
 
     public AbstractNode(String id, String visible, String timestamp,
-            String version, String changeset, String user, String uid) {
+            String version, String changeset, String user, String uid,
+            Map<String, String> tags) {
 
         this.id = id;
         this.visible = visible;
@@ -24,6 +28,7 @@ public class AbstractNode {
         this.changeset = changeset;
         this.user = user;
         this.uid = uid;
+        this.tags = tags;
 
     }
 
